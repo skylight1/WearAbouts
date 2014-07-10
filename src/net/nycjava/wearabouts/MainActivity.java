@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
 				
 				// TODO release wake lock here
 			}
-		});
+		}).start();
         
         setContentView(R.layout.activity_main);
 
