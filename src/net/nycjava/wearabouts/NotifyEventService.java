@@ -3,11 +3,11 @@ package net.nycjava.wearabouts;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.app.RemoteInput;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.WearableExtender;
 import android.support.v4.app.NotificationManagerCompat;
 
 public class NotifyEventService extends IntentService {
@@ -42,11 +42,15 @@ public class NotifyEventService extends IntentService {
 		PendingIntent showOnMapPendingIntent = PendingIntent.getBroadcast(this, 0,
 				openMapIntent, PendingIntent.FLAG_ONE_SHOT
 						| PendingIntent.FLAG_CANCEL_CURRENT);
-		builder.setContentIntent(showOnMapPendingIntent);
-		Notification notification = new WearableNotifications.Builder(builder)
-				.setMinPriority()
-				.addRemoteInputForContentIntent(
-						new RemoteInput.Builder("yes").setLabel("Show map?").build())
+		
+		// Create the action
+		NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.ic_action_locate,
+		                getString(R.string.label), showOnMapPendingIntent)
+		                .build();
+		
+		Notification notification =
+		        new NotificationCompat.Builder(this)
+				.extend(new WearableExtender().addAction(action))	
 				.build();
 		NotificationManagerCompat.from(this).notify(0, notification);
 	}
