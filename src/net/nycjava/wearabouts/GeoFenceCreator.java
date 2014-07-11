@@ -31,6 +31,8 @@ public class GeoFenceCreator {
 
 					@Override
 					public void onConnected(Bundle connectionHint) {
+						long now = System.currentTimeMillis();
+						
 						for (Event event : events) {
 							final Intent nearbyEventIntent = new Intent(
 									context, NotifyEventService.class);
@@ -38,6 +40,8 @@ public class GeoFenceCreator {
 							nearbyEventIntent.putExtra(IntentExtraConstants.EVENT_NAME, event.name);
 							nearbyEventIntent.putExtra(IntentExtraConstants.EVENT_LATITUDE, event.latLong.latitude);
 							nearbyEventIntent.putExtra(IntentExtraConstants.EVENT_LONGITUDE, event.latLong.longitude);
+							nearbyEventIntent.putExtra(IntentExtraConstants.EVENT_START, event.start.getTime());
+							nearbyEventIntent.putExtra(IntentExtraConstants.EVENT_END, event.end.getTime());
 							final PendingIntent nearbyEventPendingIntent = PendingIntent
 									.getService(
 											context,
@@ -47,6 +51,8 @@ public class GeoFenceCreator {
 													| PendingIntent.FLAG_CANCEL_CURRENT);
 
 							final Geofence geofence = new Geofence.Builder()
+									.setRequestId(Integer.toString(event.id))
+									.setExpirationDuration(event.end.getTime() - now)
 									.setCircularRegion(event.latLong.latitude,
 											event.latLong.longitude, 500f)
 									.setTransitionTypes(
