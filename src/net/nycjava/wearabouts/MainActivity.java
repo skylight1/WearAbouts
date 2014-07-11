@@ -2,7 +2,6 @@ package net.nycjava.wearabouts;
 
 import java.util.List;
 
-import net.nycjava.wearabouts.R;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
