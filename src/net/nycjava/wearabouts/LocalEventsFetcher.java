@@ -2,8 +2,12 @@ package net.nycjava.wearabouts;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -20,12 +24,29 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class LocalEventsFetcher {
 	// TODO get today's date and time and use NYC long/lat and range of about 25 miles
-	private final static String URL = "http://api.seatgeek.com/2/events?lat=40.783767&lon=-73.965118&range=1mi&datetime_local.gt=2014-07-09T00:00:00&datetime_local.lt=2014-07-10T00:00:00";
+	private final static String URL_PATTERN = "http://api.seatgeek.com/2/events?lat=40.783767&lon=-73.965118&range=1mi&datetime_local.gt=%s&datetime_local.lt=%s";
+	private static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
+	private static final int MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS = 3;
+	private static final int MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS = 1;
 	
 	public List<Event> getLocalEvents() {
 		try {
+			SimpleDateFormat localFormat = new SimpleDateFormat(ISO_FORMAT);
+			
+			Calendar timeWindowStartCalendar = Calendar.getInstance();
+			timeWindowStartCalendar.add(Calendar.HOUR, -MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS);
+			Date timeWindowStartDate = timeWindowStartCalendar.getTime();
+			String timeWindowStartLocalString = localFormat.format(timeWindowStartDate);
+			
+			Calendar timeWindowEndCalendar = Calendar.getInstance();
+			timeWindowEndCalendar.add(Calendar.HOUR, MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS);
+			Date timeWindowEndDate = timeWindowEndCalendar.getTime();
+			String timeWindowEndLocalString = localFormat.format(timeWindowEndDate);
+			
 			HttpClient httpclient = new DefaultHttpClient();
-			HttpResponse response = httpclient.execute(new HttpGet(URL));
+			
+			String url = String.format(URL_PATTERN, timeWindowStartLocalString, timeWindowEndLocalString);
+			HttpResponse response = httpclient.execute(new HttpGet(url));
 			StatusLine statusLine = response.getStatusLine();
 			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
 				response.getEntity().getContent().close();
