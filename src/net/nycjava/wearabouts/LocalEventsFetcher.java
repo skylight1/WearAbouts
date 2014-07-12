@@ -19,10 +19,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import android.util.JsonReader;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
 public class LocalEventsFetcher {
+	public final static String TAG = "WearAbouts.LocalEventsFetcher";
 	private final static String URL_PATTERN = "http://api.seatgeek.com/2/events?lat=40.783767&lon=-73.965118&range=1mi&datetime_local.gt=%s&datetime_local.lt=%s";
 
 	private static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
@@ -32,7 +34,7 @@ public class LocalEventsFetcher {
 	// private static final int MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS = 3;
 	private static final int MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS = 300;
 
-	private static final int MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS = 1;
+	private static final int MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS = 300;
 
 	public List<Event> getLocalEvents() {
 		try {
@@ -58,6 +60,7 @@ public class LocalEventsFetcher {
 
 			String url = String.format(URL_PATTERN, timeWindowStartLocalString,
 					timeWindowEndLocalString);
+			Log.d(TAG,"url:" + url);
 			HttpResponse response = httpclient.execute(new HttpGet(url));
 			StatusLine statusLine = response.getStatusLine();
 			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
@@ -132,6 +135,7 @@ public class LocalEventsFetcher {
 
 							events.add(new Event(name, id, new LatLng(latitude,
 									longitude), start, end));
+							Log.d(TAG,"name:" + name + " id:" + id + " lat:" + latitude + " long:" + longitude + " start:" + start + " end:" + end);
 						}
 						jsonReader.endArray();
 					} else {
