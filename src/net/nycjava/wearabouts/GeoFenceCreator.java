@@ -43,6 +43,8 @@ public class GeoFenceCreator {
 							nearbyEventIntent.putExtra(IntentExtraConstants.EVENT_LONGITUDE, event.latLong.longitude);
 							nearbyEventIntent.putExtra(IntentExtraConstants.EVENT_START, event.start.getTime());
 							nearbyEventIntent.putExtra(IntentExtraConstants.EVENT_END, event.end.getTime());
+							nearbyEventIntent.putExtra(IntentExtraConstants.IMAGE_URL, event.imageurl);
+							
 							final PendingIntent nearbyEventPendingIntent = PendingIntent
 									.getService(
 											context,

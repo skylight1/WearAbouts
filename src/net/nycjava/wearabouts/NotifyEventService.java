@@ -1,23 +1,25 @@
 package net.nycjava.wearabouts;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.google.android.gms.location.LocationClient;
-
 import android.annotation.SuppressLint;
 import android.app.IntentService;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationCompat.WearableExtender;
-import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
+
+import com.google.android.gms.location.LocationClient;
 
 @SuppressLint("SimpleDateFormat")
 public class NotifyEventService extends IntentService {
@@ -67,7 +69,6 @@ public class NotifyEventService extends IntentService {
 
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, openMapIntent, 0);
 
-		//
 		// BEGIN_INCLUDE (build_notification)
 		/**
 		 * Use NotificationCompat.Builder to set up our notification.
@@ -99,6 +100,11 @@ public class NotifyEventService extends IntentService {
 		 */
 		if(imageurl==null || imageurl.length()==0) {
 			builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+		} else {
+			Bitmap bitmap = getBitmap(imageurl);
+			if(bitmap!=null) {
+				builder.setLargeIcon(bitmap);
+			}
 		}
 		/**
 		 * Set the text of the notification. This sample sets the three most commononly used
@@ -109,24 +115,51 @@ public class NotifyEventService extends IntentService {
 		 *    versions of Android prior to 4.2 will ignore this field, so don't use it for
 		 *    anything vital!
 		 */
-		SimpleDateFormat dt = new SimpleDateFormat("yyyyy-mm-dd hh:mm:ss"); 
+		SimpleDateFormat dt = new SimpleDateFormat("hh:mm"); 
 		builder.setContentTitle("WearAbouts");
-		builder.setContentText("Event: " + name + " Starts: " + dt.format(startDate) + " Ends: " + dt.format(endDate));
+		builder.setContentText(dt.format(startDate) + "\n" + name);
 		builder.setSubText("Tap for Map location");
 
 		// END_INCLUDE (build_notification)
-
+		
 
 		/**
 		 * Send the notification. This will immediately display the notification icon in the
 		 * notification bar.
 		 */
-		NotificationManager notificationManager = (NotificationManager) getSystemService(
-				NOTIFICATION_SERVICE);
+		NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 		notificationManager.notify(0, builder.build());
 
 	}
 
+	private Bitmap getBitmap(String imageurl) {
+		Bitmap bitmap=null;		
+		try {
+	        URL url = new URL(imageurl);
+	        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	        connection.setDoInput(true);
+	        connection.connect();
+	        InputStream input = connection.getInputStream();
+	        bitmap = BitmapFactory.decodeStream(input);
+	        bitmap = getResizedBitmap(bitmap, 128, 128);
+	        return bitmap;
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+		return bitmap;
+	}
+
+	public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+	    int width = bm.getWidth();
+	    int height = bm.getHeight();
+	    float scaleWidth = ((float) newWidth) / width;
+	    float scaleHeight = ((float) newHeight) / height;
+	    Matrix matrix = new Matrix();
+	    matrix.postScale(scaleWidth, scaleHeight);
+	    Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+	    return resizedBitmap;
+	}
+	
 /*
 	private void showNotification(Intent intent) {
 		Log.d(TAG,"in showNotification");
