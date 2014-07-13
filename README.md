@@ -3,9 +3,9 @@ WearAbouts
 
 Local events find you as you walk around the city and notify you on your Android phone or Android Wear device.
 
-[Image](screenshots/screen1.png?raw=true)
-[Image](screenshots/screen2.png?raw=true)
-[Image](screenshots/screen3.png?raw=true)
+![Screenshot1](screenshots/screen1.png?raw=true)
+![Screenshot2](screenshots/screen2.png?raw=true)
+![Screenshot3](screenshots/screen3.png?raw=true)
 
 Source Data: SeatGeek from NYCOpenData set.
 
