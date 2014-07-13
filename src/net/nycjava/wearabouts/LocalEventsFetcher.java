@@ -19,6 +19,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
 import android.util.JsonReader;
+import android.util.JsonToken;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -81,6 +82,7 @@ public class LocalEventsFetcher {
 						jsonReader.beginArray();
 						while (jsonReader.hasNext()) {
 							String name = null;
+							String imageurl = null;
 							int id = 0;
 							double latitude = 0;
 							double longitude = 0;
@@ -101,22 +103,15 @@ public class LocalEventsFetcher {
 								} else if (propertyName.equals("venue")) {
 									jsonReader.beginObject();
 									while (jsonReader.hasNext()) {
-										String venuePropertyName = jsonReader
-												.nextName();
-										if (venuePropertyName
-												.equals("location")) {
+										String venuePropertyName = jsonReader.nextName();
+										if (venuePropertyName.equals("location")) {
 											jsonReader.beginObject();
 											while (jsonReader.hasNext()) {
-												String locationPropertyName = jsonReader
-														.nextName();
-												if (locationPropertyName
-														.equals("lat")) {
-													latitude = jsonReader
-															.nextDouble();
-												} else if (locationPropertyName
-														.equals("lon")) {
-													longitude = jsonReader
-															.nextDouble();
+												String locationPropertyName = jsonReader.nextName();
+												if (locationPropertyName.equals("lat")) {
+													latitude = jsonReader.nextDouble();
+												} else if (locationPropertyName.equals("lon")) {
+													longitude = jsonReader.nextDouble();
 												} else {
 													jsonReader.skipValue();
 												}
@@ -127,15 +122,39 @@ public class LocalEventsFetcher {
 										}
 									}
 									jsonReader.endObject();
-								} else {
+								} else if (propertyName.equals("performers")) {
+									jsonReader.beginArray();
+									while (jsonReader.hasNext()) {
+										jsonReader.beginObject();
+										while (jsonReader.hasNext()) {
+											if(jsonReader.peek()!=JsonToken.NULL) {
+												String performersPropertyName = jsonReader.nextName();
+												if (performersPropertyName.equals("image")) {
+													if(jsonReader.peek()!=JsonToken.NULL) {
+														imageurl = jsonReader.nextString();
+													} else {
+														jsonReader.skipValue();
+													}
+												} else {
+													jsonReader.skipValue();
+												}
+											} else {
+												jsonReader.skipValue();
+											}
+										}
+										jsonReader.endObject();
+									}
+									jsonReader.endArray();			
+								}
+								else {
 									jsonReader.skipValue();
 								}
 							}
 							jsonReader.endObject();
 
 							events.add(new Event(name, id, new LatLng(latitude,
-									longitude), start, end));
-							Log.d(TAG,"name:" + name + " id:" + id + " lat:" + latitude + " long:" + longitude + " start:" + start + " end:" + end);
+									longitude), start, end, imageurl));
+							Log.d(TAG,"name:" + name + " id:" + id + " lat:" + latitude + " long:" + longitude + " start:" + start + " end:" + end + " imageurl:"+imageurl);
 						}
 						jsonReader.endArray();
 					} else {

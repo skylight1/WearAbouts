@@ -41,7 +41,9 @@ public class NotifyEventService extends IntentService {
             Log.e(TAG,"Bad:" + errorMessage);
 
 		}
-		showNotification(intent);
+//        else {
+			showNotification(intent);
+//		}
 	}
 	
 	public void showNotification(Intent intentIn) {
@@ -56,12 +58,12 @@ public class NotifyEventService extends IntentService {
 		String name = intentIn.getStringExtra(IntentExtraConstants.EVENT_NAME);
 		Date startDate = new Date(intentIn.getLongExtra(IntentExtraConstants.EVENT_START,0));
 		Date endDate = new Date(intentIn.getLongExtra(IntentExtraConstants.EVENT_END,0));
+		String imageurl = intentIn.getStringExtra(IntentExtraConstants.IMAGE_URL);
 		
 		Intent openMapIntent = new Intent(
 				android.content.Intent.ACTION_VIEW,
-				Uri.parse(String.format(
-						"geo:0,0?q=%f,%f (%s)",
-						lat, lon, name)));
+				Uri.parse(String.format("geo:0,0?q=%f,%f (%s)", lat, lon, name))
+				);
 
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, openMapIntent, 0);
 
@@ -95,8 +97,9 @@ public class NotifyEventService extends IntentService {
 		 * sample we'll set the large icon to be the same as our app icon. The app icon is a
 		 * reasonable default if you don't have anything more compelling to use as an icon.
 		 */
-		builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
-
+		if(imageurl==null || imageurl.length()==0) {
+			builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher));
+		}
 		/**
 		 * Set the text of the notification. This sample sets the three most commononly used
 		 * text areas:

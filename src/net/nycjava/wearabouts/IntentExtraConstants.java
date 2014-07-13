@@ -7,4 +7,5 @@ public class IntentExtraConstants {
 	public final static String EVENT_LONGITUDE = "eventLongitude";
 	public final static String EVENT_START = "eventStart";
 	public final static String EVENT_END = "eventEnd";
+	public static final String IMAGE_URL = "imageURL";
 }
