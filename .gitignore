@@ -26,3 +26,5 @@ proguard/
 *.log
 
 libs/
+
+.DS_Store
