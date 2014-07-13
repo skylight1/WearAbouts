@@ -33,9 +33,9 @@ public class LocalEventsFetcher {
 	// for now get events for hundreds of hours in the future, just to make sure
 	// it finds **any** events!
 	// private static final int MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS = 3;
-	private static final int MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS = 300;
+	private static final int MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS = 3;
 
-	private static final int MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS = 300;
+	private static final int MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS = 2;
 
 	public List<Event> getLocalEvents() {
 		try {
