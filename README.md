@@ -17,6 +17,9 @@ Licensed under CC BY 3.0 US - http://creativecommons.org/licenses/by/3.0/us/
 Open source code provided under Apache 2.0 License
 
 To build you need the following dependencies:
+
 Android Library Projects: android-support-v7-appcompat  and  google-play-services_lib
-and to build in eclipse, place the android-support-v4.jar and android-wear-1.0.0 jar files in the libs folder
-for info on creating the android wear library for eclipse see: http://stackoverflow.com/questions/24520240/import-android-support-wearable-cannot-be-resolved
+
+To build in Eclipse, place the android-support-v4.jar and android-wear-1.0.0 jar files in the libs folder. For info on creating the android wear library for use in Eclipse see:
+
+http://stackoverflow.com/questions/24520240/import-android-support-wearable-cannot-be-resolved
