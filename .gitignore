@@ -17,8 +17,8 @@ app/build/
 *.class
 
 # Generated files
-app/src/main/bin/
-app/src/main/gen/
+app/src/main/bin
+app/src/main/gen
 
 # Gradle files
 .gradle/
