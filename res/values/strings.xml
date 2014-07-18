@@ -2,8 +2,9 @@
 <resources>
 
     <string name="app_name">WearAbouts</string>
-    <string name="message">Welcome to WearAbouts!\n\nYou\'ll now be notified of events around you as you walk about the city.\n\nOn your phone or Android Wear device!</string>
+    <string name="message">Welcome to WearAbouts!\n\nYou\'ll now be notified of events around you as you walk about New York City.\n\nOn your phone or Android Wear device!</string>
     <string name="action_settings">Settings</string>
     <string name="label">Show Map?</string>
-
+    <string name="nycbigapps">Data Source: NYCOpenData:\n\nhttps://data.cityofnewyork.us/NYC-BigApps/SeatGeek-Events/agx7-ib66</string>
+	<string name="logo">WearAbouts Logo</string>
 </resources>

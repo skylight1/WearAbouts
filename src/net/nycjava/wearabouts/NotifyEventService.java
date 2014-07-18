@@ -69,7 +69,6 @@ public class NotifyEventService extends IntentService {
 
 		PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, openMapIntent, 0);
 
-		// BEGIN_INCLUDE (build_notification)
 		/**
 		 * Use NotificationCompat.Builder to set up our notification.
 		 */
@@ -119,8 +118,8 @@ public class NotifyEventService extends IntentService {
 		builder.setContentTitle("WearAbouts");
 		builder.setContentText(dt.format(startDate) + "\n" + name);
 		builder.setSubText("Tap for Map location");
+		builder.setVibrate(new long[] {0, 100, 50, 100} );
 
-		// END_INCLUDE (build_notification)
 		
 
 		/**
