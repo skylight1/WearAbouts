@@ -26,7 +26,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class LocalEventsFetcher {
 	public final static String TAG = "WearAbouts.LocalEventsFetcher";
-	private final static String URL_PATTERN = "http://api.seatgeek.com/2/events?lat=40.783767&lon=-73.965118&range=10mi&datetime_local.gt=%s&datetime_local.lt=%s";
+
+	private final static String URL_PATTERN = "http://api.seatgeek.com/2/events?lat=40.704861476092624&lon=-73.92979134831546&range=10mi&datetime_local.gt=%s&datetime_local.lt=%s";
 
 	private static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 
@@ -152,8 +153,10 @@ public class LocalEventsFetcher {
 							}
 							jsonReader.endObject();
 
-							events.add(new Event(name, id, new LatLng(latitude,
-									longitude), start, end, imageurl));
+							//debug only!!!:
+//							latitude=40.7518875472445; longitude=-74.00635711848736;
+							
+							events.add(new Event(name, id, new LatLng(latitude,longitude), start, end, imageurl));
 							Log.d(TAG,"name:" + name + " id:" + id + " lat:" + latitude + " long:" + longitude + " start:" + start + " end:" + end + " imageurl:"+imageurl);
 						}
 						jsonReader.endArray();
