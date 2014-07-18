@@ -6,6 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import android.annotation.SuppressLint;
 import android.app.IntentService;
@@ -58,7 +59,9 @@ public class NotifyEventService extends IntentService {
 		double lon = intentIn.getDoubleExtra(IntentExtraConstants.EVENT_LONGITUDE,0);
 		String name = intentIn.getStringExtra(IntentExtraConstants.EVENT_NAME);
 		Date startDate = new Date(intentIn.getLongExtra(IntentExtraConstants.EVENT_START,0));
+		startDate = getDateInTimeZone(startDate, "EDT");
 		Date endDate = new Date(intentIn.getLongExtra(IntentExtraConstants.EVENT_END,0));
+		endDate = getDateInTimeZone(endDate, "EDT");
 		String imageurl = intentIn.getStringExtra(IntentExtraConstants.IMAGE_URL);
 		
 		Intent openMapIntent = new Intent(
@@ -118,7 +121,6 @@ public class NotifyEventService extends IntentService {
 		builder.setSubText("Tap for Map location");
 		builder.setVibrate(new long[] {0, 100, 50, 100} );
 
-		
 
 		/**
 		 * Send the notification. This will immediately display the notification icon in the
@@ -215,4 +217,9 @@ public class NotifyEventService extends IntentService {
 //		NotificationManagerCompat.from(this).notify(0, notification);
 	}
 	*/
+	public static Date getDateInTimeZone(Date currentDate, String timeZoneId) {
+        TimeZone tz = TimeZone.getTimeZone(timeZoneId);
+        Date convDate = new Date(currentDate.getTime()+ tz.getOffset(currentDate.getTime()));
+        return convDate;
+    }
 }
