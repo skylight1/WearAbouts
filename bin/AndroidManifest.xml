@@ -8,8 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -31,22 +31,25 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name=".NotifyEventService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".FetcherService"
+            android:exported="false" >
+        </service>
+        <!--
         <receiver
             android:name="net.nycjava.wearabouts.BootUpReceiver"
             android:enabled="true"
             android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-
-        <service
-            android:name="net.nycjava.wearabouts.NotifyEventService"
-            android:exported="false"
-            android:label="@string/app_name" >
-        </service>
+        -->
     </application>
 
 </manifest>
