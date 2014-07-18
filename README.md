@@ -1,13 +1,18 @@
-WearAbouts
+WearAbouts  (a NYCBigApps project)
 ==========
 
-Local events find you as you walk around the city and notify you on your Android phone or Android Wear device.
+Local events find you as you walk around New York City and notify you on your Android phone or Android Wear device.
 
-![Screenshot1](screenshots/screen1.png?raw=true)
 ![Screenshot2](screenshots/screen2.png?raw=true)
 ![Screenshot3](screenshots/screen3.png?raw=true)
 
+![Screenshot3](screenshots/screen4.png?raw=true)
+![Screenshot3](screenshots/screen5.png?raw=true)
+
 ![Screenshot3](screenshots/screenshotphone.png?raw=true)
+
+![Screenshot3](screenshots/WearAboutsOnAndroidWearWatch.jpg?raw=true)
+
 
 Source Data: SeatGeek from NYCOpenData set.
 
