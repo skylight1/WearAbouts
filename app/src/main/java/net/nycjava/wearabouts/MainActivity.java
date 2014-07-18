@@ -39,8 +39,8 @@ public class MainActivity extends ActionBarActivity {
         AlarmManager alarmMgr = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         
         alarmMgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES,
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, alarmIntent);
+                AlarmManager.INTERVAL_HOUR,
+                AlarmManager.INTERVAL_HOUR, alarmIntent);
         
         setContentView(R.layout.activity_main);
 
