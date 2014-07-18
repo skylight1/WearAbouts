@@ -26,7 +26,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class LocalEventsFetcher {
 	public final static String TAG = "WearAbouts.LocalEventsFetcher";
-	private final static String URL_PATTERN = "http://api.seatgeek.com/2/events?lat=40.783767&lon=-73.965118&range=1mi&datetime_local.gt=%s&datetime_local.lt=%s";
+	private final static String URL_PATTERN = "http://api.seatgeek.com/2/events?lat=40.783767&lon=-73.965118&range=10mi&datetime_local.gt=%s&datetime_local.lt=%s";
 
 	private static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 
