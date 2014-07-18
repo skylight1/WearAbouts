@@ -1,6 +1,10 @@
 /build
+app/build/
 .gradle
 /.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/datasources.xml
+/.idea/datasources.ids
 
 # Built application files
 *.apk
@@ -13,8 +17,8 @@
 *.class
 
 # Generated files
-bin/
-gen/
+app/src/main/bin/
+app/src/main/gen/
 
 # Gradle files
 .gradle/
@@ -29,6 +33,12 @@ proguard/
 # Log Files
 *.log
 
-libs/
+# Eclipse
+.metadata/
+app/src/main/libs/
 
+# Mac
 .DS_Store
+
+# Windows
+Thumbs.db
