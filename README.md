@@ -10,7 +10,6 @@ Local events find you as you walk around New York City and notify you on your An
 ![Screenshot3](screenshots/screen5.png?raw=true)
 
 ![Screenshot3](screenshots/screenshotphone.png?raw=true)
-
 ![Screenshot3](screenshots/WearAboutsOnAndroidWearWatch.jpg?raw=true)
 
 
