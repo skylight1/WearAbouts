@@ -54,7 +54,6 @@ public class NotifyEventService extends IntentService {
 		 * The intent needs to be packaged into a {@link android.app.PendingIntent} so that the
 		 * notification service can fire it on our behalf.
 		 */
-
 		double lat = intentIn.getDoubleExtra(IntentExtraConstants.EVENT_LATITUDE,0);
 		double lon = intentIn.getDoubleExtra(IntentExtraConstants.EVENT_LONGITUDE,0);
 		String name = intentIn.getStringExtra(IntentExtraConstants.EVENT_NAME);
@@ -87,9 +86,8 @@ public class NotifyEventService extends IntentService {
 		// Set the intent that will fire when the user taps the notification.
 		builder.setContentIntent(pendingIntent);
 
-		// Set the notification to auto-cancel. This means that the notification will disappear
-		// after the user taps it, rather than remaining until it's explicitly dismissed.
-		builder.setAutoCancel(true);
+		// User dismisses it.
+		builder.setAutoCancel(false);
 
 		/**
 		 *Build the notification's appearance.
