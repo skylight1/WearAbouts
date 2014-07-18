@@ -152,8 +152,8 @@ public class LocalEventsFetcher {
 							}
 							jsonReader.endObject();
 
-							//debug only!!!:
-							latitude=40.7518875472445; longitude=-74.00635711848736;
+							//debug only!!!: McGarry Bowen location for all events
+//							latitude=40.7518875472445; longitude=-74.00635711848736;
 							
 							events.add(new Event(name, id, new LatLng(latitude,longitude), start, end, imageurl));
 							Log.d(TAG,"name:" + name + " id:" + id + " lat:" + latitude + " long:" + longitude + " start:" + start + " end:" + end + " imageurl:"+imageurl);
