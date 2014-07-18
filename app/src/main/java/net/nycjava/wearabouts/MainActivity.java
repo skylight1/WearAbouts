@@ -23,21 +23,19 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-                
+        /*                
 		// TODO add wake lock here
-		
         new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
-				List<Event> events = new LocalEventsFetcher().getLocalEvents();
-				
+				List<Event> events = new LocalEventsFetcher().getLocalEvents();				
 				new GeoFenceCreator().createGeoFences(MainActivity.this, events);
 				
 				// TODO release wake lock here
 			}
 		}).start();
-        
+        */
         Intent intent = new Intent(this, FetcherService.class);
         
         PendingIntent alarmIntent = PendingIntent.getService(this, 0, intent, 0);

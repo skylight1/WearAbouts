@@ -31,12 +31,9 @@ public class LocalEventsFetcher {
 
 	private static final String ISO_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
 
-	// for now get events for hundreds of hours in the future, just to make sure
-	// it finds **any** events!
-	// private static final int MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS = 3;
-	private static final int MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS = 3;
+	private static final int MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS = 2;
 
-	private static final int MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS = 2;
+	private static final int MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS = 4;
 
 	public List<Event> getLocalEvents() {
 		try {
@@ -45,24 +42,19 @@ public class LocalEventsFetcher {
 			utcFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 			Calendar timeWindowStartCalendar = Calendar.getInstance();
-			timeWindowStartCalendar.add(Calendar.HOUR,
-					-MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS);
+			timeWindowStartCalendar.add(Calendar.HOUR,-MAXIMUM_NUMBER_OF_HOURS_BEFORE_EVENT_STARTS);
 			Date timeWindowStartDate = timeWindowStartCalendar.getTime();
-			String timeWindowStartLocalString = localFormat
-					.format(timeWindowStartDate);
+			String timeWindowStartLocalString = localFormat.format(timeWindowStartDate);
 
 			Calendar timeWindowEndCalendar = Calendar.getInstance();
-			timeWindowEndCalendar.add(Calendar.HOUR,
-					MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS);
+			timeWindowEndCalendar.add(Calendar.HOUR,MAXIMUM_NUMBER_OF_HOURS_AFTER_EVENT_STARTS);
 			Date timeWindowEndDate = timeWindowEndCalendar.getTime();
-			String timeWindowEndLocalString = localFormat
-					.format(timeWindowEndDate);
+			String timeWindowEndLocalString = localFormat.format(timeWindowEndDate);
 
 			HttpClient httpclient = new DefaultHttpClient();
 
-			String url = String.format(URL_PATTERN, timeWindowStartLocalString,
-					timeWindowEndLocalString);
-			Log.d(TAG,"url:" + url);
+			String url = String.format(URL_PATTERN, timeWindowStartLocalString, timeWindowEndLocalString);
+			Log.d(TAG,"URL=>" + url);
 			HttpResponse response = httpclient.execute(new HttpGet(url));
 			StatusLine statusLine = response.getStatusLine();
 			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {

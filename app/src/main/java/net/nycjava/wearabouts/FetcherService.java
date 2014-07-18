@@ -24,7 +24,6 @@ public class FetcherService extends IntentService {
 				@Override
 				public void run() {
 					List<Event> events = new LocalEventsFetcher().getLocalEvents();
-					
 					new GeoFenceCreator().createGeoFences(getApplicationContext(), events);
 					
 					// TODO release wake lock here

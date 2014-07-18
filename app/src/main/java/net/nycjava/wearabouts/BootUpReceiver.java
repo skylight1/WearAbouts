@@ -12,7 +12,6 @@ public class BootUpReceiver extends BroadcastReceiver {
 		// TODO add wake lock here
 
 		List<Event> events = new LocalEventsFetcher().getLocalEvents();
-
 		new GeoFenceCreator().createGeoFences(context, events);
 
 		// TODO release wake lock here
