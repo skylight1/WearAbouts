@@ -26,8 +26,10 @@ Both Android Studio and Eclipse supported.
 To build iin Eclipse you need the following dependencies: 
 Android Library Projects: android-support-v7-appcompat  and  google-play-services_lib
 
-To build in Eclipse, place the android-support-v4.jar and android-wear-1.0.0 jar files in the libs folder. For info on creating the android wear library for use in Eclipse see:
+To build in Eclipse, place the android-support-v4.jar in the libs folder. For info on creating the android wear library for use in Eclipse see:
 
 http://stackoverflow.com/questions/24520240/import-android-support-wearable-cannot-be-resolved
 
-Note: you can add the unzipped aar as an android library dependency (mark it as a library first) to make sure resources and not just classes are included.
+Note: you can add the unzipped aar as an android library dependency instead (mark it as a library first) to make sure resources and not just classes are included.
+
+To disable 
